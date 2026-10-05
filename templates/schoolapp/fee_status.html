@@ -1,0 +1,374 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fee Status | Bright Future School</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #12355b;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .page-title {
+            color: #12355b;
+            font-weight: bold;
+        }
+
+        .summary-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .summary-icon {
+            font-size: 32px;
+        }
+
+        .table-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: #12355b;
+            color: white;
+        }
+
+        .btn-school {
+            background: #12355b;
+            color: white;
+        }
+
+        .btn-school:hover {
+            background: #0d2945;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark">
+    <div class="container">
+
+        <a class="navbar-brand" href="{% url 'admin_dashboard' %}">
+            <i class="fa-solid fa-school"></i>
+            Bright Future School
+        </a>
+
+        <div>
+
+            <a href="{% url 'create_fee_payment' %}"
+               class="btn btn-light btn-sm me-2">
+                <i class="fa-solid fa-plus"></i>
+                Add Payment
+            </a>
+
+            <a href="{% url 'fee_payment_list' %}"
+               class="btn btn-warning btn-sm">
+                Payment List
+            </a>
+
+        </div>
+
+    </div>
+</nav>
+
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="page-title">
+                <i class="fa-solid fa-money-bill-wave"></i>
+                Fee Status
+            </h2>
+
+            <p class="text-muted mb-0">
+                Paid and pending fee overview
+            </p>
+        </div>
+
+        <a href="{% url 'admin_dashboard' %}"
+           class="btn btn-school">
+            <i class="fa-solid fa-arrow-left"></i>
+            Dashboard
+        </a>
+
+    </div>
+
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+
+            <div class="card summary-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Total Paid
+                        </p>
+
+                        <h3 class="fw-bold text-success">
+                            Rs. {{ total_paid }}
+                        </h3>
+                    </div>
+
+                    <div class="summary-icon text-success">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card summary-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Total Pending
+                        </p>
+
+                        <h3 class="fw-bold text-danger">
+                            Rs. {{ total_pending }}
+                        </h3>
+                    </div>
+
+                    <div class="summary-icon text-danger">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card summary-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Paid Payments
+                        </p>
+
+                        <h3 class="fw-bold text-primary">
+                            {{ paid_count }}
+                        </h3>
+                    </div>
+
+                    <div class="summary-icon text-primary">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+            <div class="card summary-card p-4 h-100">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <p class="text-muted mb-1">
+                            Pending Payments
+                        </p>
+
+                        <h3 class="fw-bold text-warning">
+                            {{ pending_count }}
+                        </h3>
+                    </div>
+
+                    <div class="summary-icon text-warning">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Student Fee Status -->
+
+    <div class="card table-card">
+
+        <div class="card-body">
+
+            <h4 class="mb-4">
+                <i class="fa-solid fa-users"></i>
+                Student Fee Status
+            </h4>
+
+            {% if student_fee_data %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Student</th>
+
+                            <th>Class</th>
+
+                            <th>Paid Amount</th>
+
+                            <th>Pending Amount</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in student_fee_data %}
+
+                        <tr>
+
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ item.student.name }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {% if item.student.school_class %}
+                                    {{ item.student.school_class }}
+                                {% else %}
+                                    Not Assigned
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <span class="badge bg-success">
+                                    Rs. {{ item.paid_amount }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="badge bg-danger">
+                                    Rs. {{ item.pending_amount }}
+                                </span>
+                            </td>
+
+                            <td>
+
+                                {% if item.pending_amount > 0 %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fa-solid fa-clock"></i>
+                                        Pending
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-success">
+                                        <i class="fa-solid fa-check"></i>
+                                        Paid
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+                <div class="alert alert-info">
+                    <i class="fa-solid fa-info-circle"></i>
+                    No students found.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>
+

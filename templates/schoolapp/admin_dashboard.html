@@ -1,0 +1,1337 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Bright Future School</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet">
+
+<style>
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: #f5f7fb;
+        color: #1d2b3a;
+    }
+
+    h1, h2, h3, h4, h5 {
+        font-family: 'Playfair Display', serif;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+        background: #12355b;
+    }
+
+    .navbar-brand {
+        font-weight: 700;
+        font-size: 22px;
+    }
+
+    .logout-btn {
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 8px;
+    }
+
+    /* HEADER */
+
+    .dashboard-header {
+        background: linear-gradient(135deg, #12355b, #1c568f);
+        color: white;
+        padding: 55px 20px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+
+    .dashboard-header p {
+        opacity: 0.9;
+        margin-bottom: 0;
+    }
+
+    /* STAT CARDS */
+
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        height: 100%;
+    }
+
+    .stat-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 14px;
+        background: #eef5fb;
+        color: #12355b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+    }
+
+    .stat-number {
+        font-size: 30px;
+        font-weight: 700;
+        color: #12355b;
+    }
+
+    .stat-title {
+        color: #6c757d;
+        font-size: 14px;
+    }
+
+    /* MANAGEMENT */
+
+    .management-title {
+        color: #12355b;
+        margin-bottom: 25px;
+    }
+
+    .management-card {
+        background: white;
+        border-radius: 16px;
+        padding: 22px 18px;
+        height: 100%;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        transition: 0.3s;
+        color: #1d2b3a;
+    }
+
+    .management-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .management-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 15px;
+        border-radius: 16px;
+        background: #eef5fb;
+        color: #12355b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+    }
+
+    .management-card h5 {
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .management-card p {
+        color: #6c757d;
+        font-size: 14px;
+        min-height: 42px;
+        margin-bottom: 15px;
+    }
+
+    .management-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 7px;
+    }
+
+    .management-buttons .btn {
+        font-size: 13px;
+        border-radius: 7px;
+    }
+
+    .disabled-btn {
+        pointer-events: none;
+        opacity: 0.55;
+    }
+
+    /* TABLE */
+
+    .table-card {
+        background: white;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    }
+
+    .section-title {
+        color: #12355b;
+        margin-bottom: 25px;
+    }
+
+    .table th {
+        background: #12355b;
+        color: white;
+        white-space: nowrap;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+    .student-photo {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .no-photo {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: #eef5fb;
+        color: #12355b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* BADGES */
+
+    .badge-pending {
+        background: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-approved {
+        background: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .badge-rejected {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    /* FOOTER */
+
+    footer {
+        background: #12355b;
+        color: white;
+        padding: 30px 0;
+        margin-top: 70px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 768px) {
+
+        .dashboard-header h1 {
+            font-size: 32px;
+        }
+
+        .table-card {
+            padding: 15px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+
+```
+<div class="container">
+
+    <a class="navbar-brand" href="{% url 'home' %}">
+
+        <i class="fa-solid fa-school me-2"></i>
+
+        Bright Future School
+
+    </a>
+
+
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <ul class="navbar-nav ms-auto">
+
+            <li class="nav-item">
+
+                <a class="nav-link"
+                   href="{% url 'home' %}">
+
+                    <i class="fa-solid fa-house me-1"></i>
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li class="nav-item">
+
+                <a class="nav-link active"
+                   href="{% url 'admin_dashboard' %}">
+
+                    <i class="fa-solid fa-gauge me-1"></i>
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li class="nav-item">
+
+                <a class="nav-link"
+                   href="{% url 'student_list' %}">
+
+                    <i class="fa-solid fa-user-graduate me-1"></i>
+                    Students
+
+                </a>
+
+            </li>
+
+
+            <li class="nav-item">
+
+                <a class="nav-link logout-btn px-3 ms-lg-2"
+                   href="{% url 'logout' %}">
+
+                    <i class="fa-solid fa-right-from-bracket me-1"></i>
+                    Logout
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+```
+
+</nav>
+
+<!-- ================= HEADER ================= -->
+
+<section class="dashboard-header">
+
+```
+<div class="container">
+
+    <h1>
+
+        <i class="fa-solid fa-gauge-high me-2"></i>
+
+        Admin Dashboard
+
+    </h1>
+
+    <p>
+
+        Welcome Admin. Manage your complete school system
+        from one place.
+
+    </p>
+
+</div>
+```
+
+</section>
+
+<!-- ================= DASHBOARD ================= -->
+
+<section class="py-5">
+
+```
+<div class="container">
+
+
+    <!-- ================= STATISTICS ================= -->
+
+    <div class="row g-4 mb-5">
+
+
+        <!-- APPLICATIONS -->
+
+        <div class="col-6 col-md-3">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="stat-number">
+                            {{ admissions|length }}
+                        </div>
+
+                        <div class="stat-title">
+                            Applications
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDENTS -->
+
+        <div class="col-6 col-md-3">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="stat-number">
+                            {{ total_students|default:"0" }}
+                        </div>
+
+                        <div class="stat-title">
+                            Students
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TEACHERS -->
+
+        <div class="col-6 col-md-3">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="stat-number">
+                            {{ total_teachers|default:"0" }}
+                        </div>
+
+                        <div class="stat-title">
+                            Teachers
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CLASSES -->
+
+        <div class="col-6 col-md-3">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="stat-number">
+                            {{ total_classes|default:"0" }}
+                        </div>
+
+                        <div class="stat-title">
+                            Classes
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MANAGEMENT ================= -->
+
+    <div class="mb-5">
+
+        <h2 class="management-title">
+
+            <i class="fa-solid fa-layer-group me-2"></i>
+
+            School Management
+
+        </h2>
+
+
+        <div class="row g-4">
+
+
+            <!-- ================= STUDENTS ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+
+                    <h5>Students</h5>
+
+                    <p>Add, edit and manage students.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'student_list' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View
+
+                        </a>
+
+                        <a href="{% url 'add_student' %}"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Student
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= FEES ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                    </div>
+
+                    <h5>Fees</h5>
+
+                    <p>Manage fee structure and student payments.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'fee_payment_list' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View Payments
+
+                        </a>
+
+                        <a href="{% url 'create_fee_payment' %}"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Fee
+
+                        </a>
+
+                        <a href="{% url 'create_fee_structure' %}"
+                           class="btn btn-warning">
+
+                            <i class="fa-solid fa-file-invoice me-1"></i>
+                            Add Structure
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= ATTENDANCE ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+
+                    <h5>Attendance</h5>
+
+                    <p>Mark and manage student attendance.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'attendance_list' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View
+
+                        </a>
+
+                        <a href="{% url 'mark_attendance' %}"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Attendance
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= RESULTS ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                    </div>
+
+                    <h5>Results / Exams</h5>
+
+                    <p>Manage exams and student marks.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'exam_list' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View Exams
+
+                        </a>
+
+                        <a href="{% url 'create_exam' %}"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Exam
+
+                        </a>
+
+                        <a href="{% url 'enter_marks' %}"
+                           class="btn btn-warning">
+
+                            <i class="fa-solid fa-pen me-1"></i>
+                            Add Marks
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            
+<!-- ================= TIMETABLE ================= -->
+
+<div class="col-12 col-md-6 col-lg-4">
+
+    <div class="management-card text-center">
+
+        <div class="management-icon">
+            <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <h5>Timetable</h5>
+
+        <p>Manage school class timetable.</p>
+
+        <div class="management-buttons">
+
+            <a href="{% url 'timetable_list' %}"
+               class="btn btn-primary">
+
+                <i class="fa-solid fa-list me-1"></i>
+                View Timetable
+
+            </a>
+
+            <a href="{% url 'create_timetable' %}"
+               class="btn btn-success">
+
+                <i class="fa-solid fa-plus me-1"></i>
+                Add Timetable
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= TASKS ================= -->
+
+<div class="col-12 col-md-6 col-lg-4">
+
+    <div class="management-card text-center">
+
+        <div class="management-icon">
+            <i class="fa-solid fa-list-check"></i>
+        </div>
+
+        <h5>Tasks</h5>
+
+        <p>Manage assignments and student tasks.</p>
+
+        <div class="management-buttons">
+
+            <a href="{% url 'task_list' %}"
+               class="btn btn-primary">
+
+                <i class="fa-solid fa-list me-1"></i>
+                View Tasks
+
+            </a>
+
+            <a href="{% url 'create_task' %}"
+               class="btn btn-success">
+
+                <i class="fa-solid fa-plus me-1"></i>
+                Add Task
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= STUDY MATERIAL ================= -->
+
+<div class="col-12 col-md-6 col-lg-4">
+
+    <div class="management-card text-center">
+
+        <div class="management-icon">
+            <i class="fa-solid fa-book-open"></i>
+        </div>
+
+        <h5>Study Material</h5>
+
+        <p>Manage notes and learning material.</p>
+
+        <div class="management-buttons">
+
+            <a href="{% url 'study_material_list' %}"
+               class="btn btn-primary">
+
+                <i class="fa-solid fa-list me-1"></i>
+                View Material
+
+            </a>
+
+            <a href="{% url 'create_study_material' %}"
+               class="btn btn-success">
+
+                <i class="fa-solid fa-plus me-1"></i>
+                Add Material
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+            <!-- ================= TEACHERS ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+
+                    <h5>Teachers</h5>
+
+                    <p>View and add school teachers.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'teachers' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View
+
+                        </a>
+
+                        <a href="/admin/schoolapp/teacher/add/"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Teacher
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SUBJECTS ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+
+                    <h5>Subjects</h5>
+
+                    <p>View and add school subjects.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="/admin/schoolapp/subject/"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View
+
+                        </a>
+
+                        <a href="/admin/schoolapp/subject/add/"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Subject
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CLASSES ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+
+                    <h5>Classes</h5>
+
+                    <p>View and add classes and sections.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'classes' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View
+
+                        </a>
+
+                        <a href="/admin/schoolapp/schoolclass/add/"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Class
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= NOTICES ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+
+                    <h5>Notices</h5>
+
+                    <p>View and add school announcements.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'notices' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View
+
+                        </a>
+
+                        <a href="/admin/schoolapp/notice/add/"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Notice
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= ADMISSIONS ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-file-signature"></i>
+                    </div>
+
+                    <h5>Admissions</h5>
+
+                    <p>Review and add admission applications.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="#applications"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-list me-1"></i>
+                            View Applications
+
+                        </a>
+
+                        <a href="{% url 'admissions' %}"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-plus me-1"></i>
+                            Add Admission
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CONTACT ================= -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="management-card text-center">
+
+                    <div class="management-icon">
+                        <i class="fa-solid fa-address-book"></i>
+                    </div>
+
+                    <h5>Contact</h5>
+
+                    <p>View school contact information.</p>
+
+                    <div class="management-buttons">
+
+                        <a href="{% url 'contact' %}"
+                           class="btn btn-primary">
+
+                            <i class="fa-solid fa-eye me-1"></i>
+                            View Contact
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= APPLICATIONS ================= -->
+
+    <div class="table-card" id="applications">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h2 class="section-title mb-1">
+
+                    <i class="fa-solid fa-clipboard-list me-2"></i>
+
+                    Admission Applications
+
+                </h2>
+
+                <p class="text-muted mb-0">
+
+                    Review all submitted admission applications.
+
+                </p>
+
+            </div>
+
+            <a href="{% url 'admissions' %}"
+               class="btn btn-success">
+
+                <i class="fa-solid fa-plus me-1"></i>
+
+                Add Admission
+
+            </a>
+
+        </div>
+
+
+        {% if admissions %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+                        <th>Student</th>
+                        <th>Father Name</th>
+                        <th>Class</th>
+                        <th>Parent Phone</th>
+                        <th>Email</th>
+                        <th>Applied Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for admission in admissions %}
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+
+                        <td>
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                {% if admission.student_photo %}
+
+                                    <img src="{{ admission.student_photo.url }}"
+                                         class="student-photo"
+                                         alt="Student Photo">
+
+                                {% else %}
+
+                                    <div class="no-photo">
+
+                                        <i class="fa-solid fa-user"></i>
+
+                                    </div>
+
+                                {% endif %}
+
+                                <strong>
+                                    {{ admission.student_name }}
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ admission.father_name }}
+                        </td>
+
+
+                        <td>
+                            {{ admission.admission_class }}
+                        </td>
+
+
+                        <td>
+                            {{ admission.parent_phone }}
+                        </td>
+
+
+                        <td>
+
+                            {% if admission.email %}
+
+                                {{ admission.email }}
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    Not provided
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+                            {{ admission.created_at|date:"d M Y" }}
+                        </td>
+
+
+                        <td>
+
+                            {% if admission.status == 'Pending' %}
+
+                                <span class="badge badge-pending px-3 py-2">
+
+                                    <i class="fa-solid fa-clock me-1"></i>
+                                    Pending
+
+                                </span>
+
+                            {% elif admission.status == 'Approved' %}
+
+                                <span class="badge badge-approved px-3 py-2">
+
+                                    <i class="fa-solid fa-check me-1"></i>
+                                    Approved
+
+                                </span>
+
+                            {% elif admission.status == 'Rejected' %}
+
+                                <span class="badge badge-rejected px-3 py-2">
+
+                                    <i class="fa-solid fa-xmark me-1"></i>
+                                    Rejected
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="d-flex flex-wrap gap-2">
+
+                                <a href="{% url 'admission_detail' admission.id %}"
+                                   class="btn btn-sm btn-outline-primary">
+
+                                    <i class="fa-solid fa-eye me-1"></i>
+                                    View
+
+                                </a>
+
+
+                                {% if admission.status == 'Pending' %}
+
+                                    <form method="POST"
+                                          action="{% url 'update_admission_status' admission.id 'Approved' %}"
+                                          class="d-inline">
+
+                                        {% csrf_token %}
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-success"
+                                                onclick="return confirm('Approve this admission application?');">
+
+                                            <i class="fa-solid fa-check me-1"></i>
+                                            Approve
+
+                                        </button>
+
+                                    </form>
+
+
+                                    <form method="POST"
+                                          action="{% url 'update_admission_status' admission.id 'Rejected' %}"
+                                          class="d-inline">
+
+                                        {% csrf_token %}
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Reject this admission application?');">
+
+                                            <i class="fa-solid fa-xmark me-1"></i>
+                                            Reject
+
+                                        </button>
+
+                                    </form>
+
+                                {% endif %}
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="fa-solid fa-folder-open fa-3x text-muted mb-3"></i>
+
+                <h4>
+                    No Admission Applications
+                </h4>
+
+                <p class="text-muted">
+                    No admission applications have been submitted yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+```
+<div class="container text-center">
+
+    <p class="mb-0">
+
+        © 2026 Bright Future School.
+        All Rights Reserved.
+
+    </p>
+
+</div>
+```
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

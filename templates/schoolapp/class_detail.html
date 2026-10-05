@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>{{ school_class.name }} | Our School</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+    body {
+        background: #f7f9fc;
+        font-family: Arial, sans-serif;
+    }
+
+    .hero {
+        background: linear-gradient(
+            135deg,
+            #1769aa,
+            #0d47a1
+        );
+        color: white;
+        padding: 70px 20px;
+        text-align: center;
+    }
+
+    .content-card {
+        background: white;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .subject-card {
+        background: #f8fbff;
+        border: 1px solid #e5eef7;
+        border-radius: 12px;
+        padding: 18px;
+        height: 100%;
+    }
+
+    .subject-card i {
+        color: #1769aa;
+        font-size: 22px;
+    }
+
+    .back-btn {
+        text-decoration: none;
+        color: #1769aa;
+        font-weight: 600;
+    }
+
+    footer {
+        background: #102a43;
+        color: white;
+        padding: 25px;
+        margin-top: 70px;
+        text-align: center;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+
+```
+<div class="container">
+
+    <a class="navbar-brand fw-bold"
+       href="{% url 'home' %}">
+
+        <i class="fa-solid fa-school me-2"></i>
+        Our School
+
+    </a>
+
+    <div>
+
+        <a class="nav-link d-inline-block"
+           href="{% url 'classes' %}">
+
+            Classes
+
+        </a>
+
+        <a class="nav-link d-inline-block"
+           href="{% url 'home' %}">
+
+            Home
+
+        </a>
+
+    </div>
+
+</div>
+```
+
+</nav>
+
+<section class="hero">
+
+```
+<h1>
+    {{ school_class.name }}
+</h1>
+
+<p>
+    Section {{ school_class.section }}
+</p>
+```
+
+</section>
+
+<div class="container py-5">
+
+```
+<a href="{% url 'classes' %}"
+   class="back-btn">
+
+    <i class="fa-solid fa-arrow-left me-2"></i>
+    Back to Classes
+
+</a>
+
+
+<div class="content-card mt-4">
+
+    <h2 class="fw-bold mb-3">
+
+        {{ school_class.name }}
+        -
+        Section {{ school_class.section }}
+
+    </h2>
+
+    <p class="text-muted">
+
+        This class is part of our academic program.
+        Students are provided with a supportive learning
+        environment and quality educational resources.
+
+    </p>
+
+
+    <hr>
+
+
+    <h4 class="fw-bold mb-4">
+
+        <i class="fa-solid fa-book me-2"></i>
+        Subjects
+
+    </h4>
+
+
+    <div class="row g-3">
+
+        {% for subject in subjects %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="subject-card">
+
+                <i class="fa-solid fa-book-open mb-2"></i>
+
+                <h5 class="fw-bold mt-2">
+                    {{ subject.name }}
+                </h5>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <p class="text-muted">
+
+                No subjects have been added
+                for this class yet.
+
+            </p>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<footer>
+
+```
+<p class="mb-0">
+    © 2026 Our School. All Rights Reserved.
+</p>
+```
+
+</footer>
+
+</body>
+
+</html>

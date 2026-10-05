@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Parent Dashboard | Bright Future School</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #1769aa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #1769aa, #2196f3);
+            color: white;
+            padding: 45px 0;
+        }
+
+        .hero h1 {
+            font-weight: 700;
+        }
+
+        .dashboard-card {
+            border: none;
+            border-radius: 15px;
+            background: white;
+            padding: 25px;
+            height: 100%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: #e8f2ff;
+            color: #1769aa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 18px;
+        }
+
+        .dashboard-card h4 {
+            font-weight: 700;
+        }
+
+        .dashboard-card p {
+            color: #777;
+        }
+
+        .btn-school {
+            background: #1769aa;
+            color: white;
+            border-radius: 8px;
+            padding: 9px 18px;
+        }
+
+        .btn-school:hover {
+            background: #0d5b98;
+            color: white;
+        }
+
+        footer {
+            background: #17202a;
+            color: white;
+            margin-top: 60px;
+            padding: 25px 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <i class="fa-solid fa-school"></i>
+            Bright Future School
+        </a>
+
+        <div>
+
+            <a
+                href="{% url 'home' %}"
+                class="btn btn-light btn-sm me-2"
+            >
+                <i class="fa-solid fa-house"></i>
+                Home
+            </a>
+
+            <a
+                href="{% url 'logout' %}"
+                class="btn btn-outline-light btn-sm"
+            >
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <h1>
+            Welcome, {{ request.user.username }}!
+        </h1>
+
+        <p class="mb-0">
+            Parent Dashboard
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- DASHBOARD -->
+
+<div class="container py-5">
+
+    <div class="row g-4">
+
+
+        <!-- CHILD PROFILE -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-child"></i>
+                </div>
+
+                <h4>Child Profile</h4>
+
+                <p>
+                    View your child's basic school information.
+                </p>
+
+                <a href="#" class="btn btn-school">
+                    View Profile
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ATTENDANCE -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <h4>Attendance</h4>
+
+                <p>
+                    Check your child's attendance record.
+                </p>
+
+                <a href="#" class="btn btn-school">
+                    View Attendance
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-chart-column"></i>
+                </div>
+
+                <h4>Results</h4>
+
+                <p>
+                    View your child's exam marks and grades.
+                </p>
+
+                <a href="#" class="btn btn-school">
+                    View Results
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- FEES -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                </div>
+
+                <h4>School Fees</h4>
+
+                <p>
+                    Check paid and pending school fees.
+                </p>
+
+                <a href="#" class="btn btn-school">
+                    View Fees
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTICES -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+
+                <h4>School Notices</h4>
+
+                <p>
+                    View important school announcements.
+                </p>
+
+                <a href="{% url 'notices' %}" class="btn btn-school">
+                    View Notices
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONTACT SCHOOL -->
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="dashboard-card">
+
+                <div class="icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+
+                <h4>Contact School</h4>
+
+                <p>
+                    Contact the school administration.
+                </p>
+
+                <a href="{% url 'home' %}" class="btn btn-school">
+                    Contact School
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container text-center">
+
+        <p class="mb-0">
+            © 2026 Bright Future School.
+            All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+
+</html>
+

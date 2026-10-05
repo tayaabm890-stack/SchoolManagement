@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>{{ student.name }} | Bright Future School</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        body {
+            background: #f5f8fc;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #12355b;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+        }
+
+        .profile-header {
+            background: #12355b;
+            color: white;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .profile-box {
+            max-width: 900px;
+            margin: -40px auto 50px;
+            position: relative;
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.10);
+        }
+
+        .student-photo {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            display: block;
+            margin: -100px auto 25px;
+        }
+
+        .no-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: #eaf1f8;
+            color: #12355b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            margin: -100px auto 25px;
+            border: 6px solid white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .student-name {
+            color: #12355b;
+            font-weight: 700;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .info-icon {
+            color: #12355b;
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .info-title {
+            color: #12355b;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .back-btn {
+            background: #12355b;
+            color: white;
+            padding: 11px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #0b2239;
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar navbar-dark">
+
+    <div class="container">
+
+        <a class="navbar-brand"
+           href="{% url 'home' %}">
+
+            <i class="fa-solid fa-school me-2"></i>
+
+            Bright Future School
+
+        </a>
+
+        <a href="{% url 'student_list' %}"
+           class="btn btn-outline-light">
+
+            <i class="fa-solid fa-users me-1"></i>
+
+            Students
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="profile-header">
+
+    <h1>
+
+        <i class="fa-solid fa-user-graduate me-2"></i>
+
+        Student Profile
+
+    </h1>
+
+    <p class="mb-0">
+
+        Bright Future School
+
+    </p>
+
+</section>
+
+
+<div class="container">
+
+
+    <div class="profile-box">
+
+
+        {% if student.photo %}
+
+            <img
+                src="{{ student.photo.url }}"
+                alt="{{ student.name }}"
+                class="student-photo"
+            >
+
+        {% else %}
+
+            <div class="no-photo">
+
+                <i class="fa-solid fa-user-graduate"></i>
+
+            </div>
+
+        {% endif %}
+
+
+        <h2 class="text-center student-name">
+
+            {{ student.name }}
+
+        </h2>
+
+        <p class="text-center text-muted mb-4">
+
+            Student
+
+        </p>
+
+
+        <div class="row g-3">
+
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-user info-icon"></i>
+
+                        Father's Name
+
+                    </div>
+
+                    <div>
+
+                        {{ student.father_name }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-school info-icon"></i>
+
+                        Class
+
+                    </div>
+
+                    <div>
+
+                        {% if student.school_class %}
+
+                            {{ student.school_class }}
+
+                        {% else %}
+
+                            Not Assigned
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-venus-mars info-icon"></i>
+
+                        Gender
+
+                    </div>
+
+                    <div>
+
+                        {{ student.gender }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-calendar-days info-icon"></i>
+
+                        Date of Birth
+
+                    </div>
+
+                    <div>
+
+                        {{ student.date_of_birth }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-phone info-icon"></i>
+
+                        Phone
+
+                    </div>
+
+                    <div>
+
+                        {{ student.phone }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-envelope info-icon"></i>
+
+                        Email
+
+                    </div>
+
+                    <div>
+
+                        {% if student.email %}
+
+                            {{ student.email }}
+
+                        {% else %}
+
+                            Not Provided
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-location-dot info-icon"></i>
+
+                        Address
+
+                    </div>
+
+                    <div>
+
+                        {{ student.address }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-12">
+
+                <div class="info-card">
+
+                    <div class="info-title">
+
+                        <i class="fa-solid fa-calendar-check info-icon"></i>
+
+                        Admission Date
+
+                    </div>
+
+                    <div>
+
+                        {{ student.admission_date }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+<div class="text-center mt-4">
+
+    <a
+        href="{% url 'student_list' %}"
+        class="back-btn"
+    >
+
+        <i class="fa-solid fa-arrow-left me-2"></i>
+
+        Back to Students
+
+    </a>
+
+
+    <a
+        href="{% url 'edit_student' student.id %}"
+        class="btn btn-warning ms-2"
+    >
+
+        <i class="fa-solid fa-pen me-1"></i>
+
+        Edit
+
+    </a>
+
+
+    <a
+        href="{% url 'delete_student' student.id %}"
+        class="btn btn-danger ms-2"
+    >
+
+        <i class="fa-solid fa-trash me-1"></i>
+
+        Delete
+
+    </a>
+
+</div>
+
+
+
+        <div class="text-center mt-4">
+
+            <a
+                href="{% url 'student_list' %}"
+                class="back-btn"
+            >
+
+                <i class="fa-solid fa-arrow-left me-2"></i>
+
+                Back to Students
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
+

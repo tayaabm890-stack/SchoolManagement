@@ -1,0 +1,289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Fee Payments</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #1769aa;
+        }
+
+        .navbar-brand {
+            color: white !important;
+        }
+
+        .page-header {
+            background: #1769aa;
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+
+        .table-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .paid {
+            color: #198754;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand fw-bold"
+            href="{% url 'home' %}"
+        >
+
+            <i class="fa-solid fa-school"></i>
+
+            School Management
+
+        </a>
+
+
+        <div>
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="btn btn-light btn-sm me-2"
+            >
+                Dashboard
+            </a>
+
+            <a
+                href="{% url 'create_fee_payment' %}"
+                class="btn btn-outline-light btn-sm"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Payment
+
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<div class="page-header">
+
+    <div class="container">
+
+        <h1>
+
+            <i class="fa-solid fa-money-check-dollar"></i>
+
+            Fee Payments
+
+        </h1>
+
+        <p class="mb-0">
+
+            View student fee payment records.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="container mb-5">
+
+    <div class="table-card">
+
+        {% if payments %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+                        <th>Student</th>
+                        <th>Class</th>
+                        <th>Month</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Method</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for payment in payments %}
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+                        <td>
+
+                            <strong>
+                                {{ payment.student.name }}
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            {% if payment.student.school_class %}
+
+                            {{ payment.student.school_class.name }}
+                            -
+                            {{ payment.student.school_class.section }}
+
+                            {% else %}
+
+                            -
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ payment.month }}
+                        </td>
+
+                        <td>
+
+                            Rs. {{ payment.amount }}
+
+                        </td>
+
+                        <td>
+
+                            {{ payment.payment_date|date:"d M Y" }}
+
+                        </td>
+
+                        <td>
+
+                            {% if payment.status == 'Paid' %}
+
+                            <span class="paid">
+
+                                <i class="fa-solid fa-circle-check"></i>
+
+                                Paid
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="pending">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                                Pending
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {{ payment.payment_method }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info text-center mb-0">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            No fee payments have been recorded yet.
+
+            <br><br>
+
+            <a
+                href="{% url 'create_fee_payment' %}"
+                class="btn btn-primary"
+            >
+
+                Add First Payment
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>
+

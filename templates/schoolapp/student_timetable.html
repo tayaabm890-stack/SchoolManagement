@@ -1,0 +1,283 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Timetable - Bright Future School</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-header {
+            background: #12355b;
+            color: white;
+            padding: 25px;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .top-header h2 {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .container-main {
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .back-btn {
+            background: #f4b942;
+            color: #12355b;
+            font-weight: bold;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #12355b;
+            color: white;
+        }
+
+        .timetable-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .title {
+            color: #12355b;
+            font-weight: bold;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        .table thead th {
+            background: #12355b;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .table tbody td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 15px;
+        }
+
+        .day {
+            font-weight: bold;
+            color: #12355b;
+        }
+
+        .subject {
+            font-weight: bold;
+        }
+
+        .teacher {
+            color: #666;
+        }
+
+        .time {
+            color: #555;
+            font-weight: 500;
+        }
+
+        .empty-box {
+            padding: 40px;
+            text-align: center;
+            color: #777;
+        }
+
+        .empty-box i {
+            font-size: 45px;
+            color: #f4b942;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+
+            .timetable-card {
+                overflow-x: auto;
+            }
+
+            .table {
+                min-width: 750px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="top-header">
+
+    <div class="container">
+
+        <h2>
+            <i class="fas fa-calendar-days"></i>
+            My Timetable
+        </h2>
+
+        <p class="mb-0">
+            Bright Future School - Student Portal
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="container-main px-3">
+
+    <a href="/student/dashboard/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to Dashboard
+    </a>
+
+
+    <div class="timetable-card">
+
+        <h3 class="title text-center">
+            Weekly Class Timetable
+        </h3>
+
+
+        {% if timetables %}
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            <i class="fas fa-calendar-day"></i>
+                            Day
+                        </th>
+
+                        <th>
+                            <i class="fas fa-clock"></i>
+                            Time
+                        </th>
+
+                        <th>
+                            <i class="fas fa-school"></i>
+                            Class
+                        </th>
+
+                        <th>
+                            <i class="fas fa-book"></i>
+                            Subject
+                        </th>
+
+                        <th>
+                            <i class="fas fa-user-tie"></i>
+                            Teacher
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for timetable in timetables %}
+
+                    <tr>
+
+                        <td class="day">
+                            {{ timetable.day }}
+                        </td>
+
+                        <td class="time">
+
+                            {{ timetable.start_time }}
+
+                            -
+
+                            {{ timetable.end_time }}
+
+                        </td>
+
+                        <td>
+                            {{ timetable.school_class }}
+                        </td>
+
+                        <td class="subject">
+                            {{ timetable.subject }}
+                        </td>
+
+                        <td class="teacher">
+                            {{ timetable.teacher }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="fas fa-calendar-xmark"></i>
+
+            <h4>No Timetable Available</h4>
+
+            <p>
+                Your class timetable has not been added yet.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
