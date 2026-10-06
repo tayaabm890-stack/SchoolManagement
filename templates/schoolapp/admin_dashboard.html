@@ -1049,265 +1049,323 @@
 
     <!-- ================= APPLICATIONS ================= -->
 
-    <div class="table-card" id="applications">
+<div class="table-card" id="applications">
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-            <div>
+        <div>
 
-                <h2 class="section-title mb-1">
+            <h2 class="section-title mb-1">
 
-                    <i class="fa-solid fa-clipboard-list me-2"></i>
+                <i class="fa-solid fa-clipboard-list me-2"></i>
 
-                    Admission Applications
+                Admission Applications
 
-                </h2>
+            </h2>
 
-                <p class="text-muted mb-0">
+            <p class="text-muted mb-0">
 
-                    Review all submitted admission applications.
+                Review all submitted admission applications.
 
-                </p>
-
-            </div>
-
-            <a href="{% url 'admissions' %}"
-               class="btn btn-success">
-
-                <i class="fa-solid fa-plus me-1"></i>
-
-                Add Admission
-
-            </a>
+            </p>
 
         </div>
 
+        <a href="{% url 'admissions' %}"
+           class="btn btn-success">
 
-        {% if admissions %}
+            <i class="fa-solid fa-plus me-1"></i>
 
-        <div class="table-responsive">
+            Add Admission
 
-            <table class="table table-hover align-middle">
-
-                <thead>
-
-                    <tr>
-
-                        <th>#</th>
-                        <th>Student</th>
-                        <th>Father Name</th>
-                        <th>Class</th>
-                        <th>Parent Phone</th>
-                        <th>Email</th>
-                        <th>Applied Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    {% for admission in admissions %}
-
-                    <tr>
-
-                        <td>
-                            {{ forloop.counter }}
-                        </td>
-
-
-                        <td>
-
-                            <div class="d-flex align-items-center gap-2">
-
-                                {% if admission.student_photo %}
-
-                                    <img src="{{ admission.student_photo.url }}"
-                                         class="student-photo"
-                                         alt="Student Photo">
-
-                                {% else %}
-
-                                    <div class="no-photo">
-
-                                        <i class="fa-solid fa-user"></i>
-
-                                    </div>
-
-                                {% endif %}
-
-                                <strong>
-                                    {{ admission.student_name }}
-                                </strong>
-
-                            </div>
-
-                        </td>
-
-
-                        <td>
-                            {{ admission.father_name }}
-                        </td>
-
-
-                        <td>
-                            {{ admission.admission_class }}
-                        </td>
-
-
-                        <td>
-                            {{ admission.parent_phone }}
-                        </td>
-
-
-                        <td>
-
-                            {% if admission.email %}
-
-                                {{ admission.email }}
-
-                            {% else %}
-
-                                <span class="text-muted">
-                                    Not provided
-                                </span>
-
-                            {% endif %}
-
-                        </td>
-
-
-                        <td>
-                            {{ admission.created_at|date:"d M Y" }}
-                        </td>
-
-
-                        <td>
-
-                            {% if admission.status == 'Pending' %}
-
-                                <span class="badge badge-pending px-3 py-2">
-
-                                    <i class="fa-solid fa-clock me-1"></i>
-                                    Pending
-
-                                </span>
-
-                            {% elif admission.status == 'Approved' %}
-
-                                <span class="badge badge-approved px-3 py-2">
-
-                                    <i class="fa-solid fa-check me-1"></i>
-                                    Approved
-
-                                </span>
-
-                            {% elif admission.status == 'Rejected' %}
-
-                                <span class="badge badge-rejected px-3 py-2">
-
-                                    <i class="fa-solid fa-xmark me-1"></i>
-                                    Rejected
-
-                                </span>
-
-                            {% endif %}
-
-                        </td>
-
-
-                        <td>
-
-                            <div class="d-flex flex-wrap gap-2">
-
-                                <a href="{% url 'admission_detail' admission.id %}"
-                                   class="btn btn-sm btn-outline-primary">
-
-                                    <i class="fa-solid fa-eye me-1"></i>
-                                    View
-
-                                </a>
-
-
-                                {% if admission.status == 'Pending' %}
-
-                                    <form method="POST"
-                                          action="{% url 'update_admission_status' admission.id 'Approved' %}"
-                                          class="d-inline">
-
-                                        {% csrf_token %}
-
-                                        <button type="submit"
-                                                class="btn btn-sm btn-success"
-                                                onclick="return confirm('Approve this admission application?');">
-
-                                            <i class="fa-solid fa-check me-1"></i>
-                                            Approve
-
-                                        </button>
-
-                                    </form>
-
-
-                                    <form method="POST"
-                                          action="{% url 'update_admission_status' admission.id 'Rejected' %}"
-                                          class="d-inline">
-
-                                        {% csrf_token %}
-
-                                        <button type="submit"
-                                                class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Reject this admission application?');">
-
-                                            <i class="fa-solid fa-xmark me-1"></i>
-                                            Reject
-
-                                        </button>
-
-                                    </form>
-
-                                {% endif %}
-
-                            </div>
-
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-
-        {% else %}
-
-            <div class="text-center py-5">
-
-                <i class="fa-solid fa-folder-open fa-3x text-muted mb-3"></i>
-
-                <h4>
-                    No Admission Applications
-                </h4>
-
-                <p class="text-muted">
-                    No admission applications have been submitted yet.
-                </p>
-
-            </div>
-
-        {% endif %}
+        </a>
 
     </div>
 
+
+    {% if admissions %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+                    <th>Student</th>
+                    <th>Father Name</th>
+                    <th>Class</th>
+                    <th>Parent Phone</th>
+                    <th>Email</th>
+                    <th>Applied Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for admission in admissions %}
+
+                <tr>
+
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+
+                    <!-- STUDENT -->
+
+                    <td>
+
+                        <div class="d-flex align-items-center gap-2">
+
+                            {% if admission.student_photo %}
+
+                                <img src="{{ admission.student_photo.url }}"
+                                     class="student-photo"
+                                     alt="Student Photo">
+
+                            {% else %}
+
+                                <div class="no-photo">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                </div>
+
+                            {% endif %}
+
+                            <strong>
+                                {{ admission.student_name }}
+                            </strong>
+
+                        </div>
+
+                    </td>
+
+
+                    <!-- FATHER -->
+
+                    <td>
+                        {{ admission.father_name }}
+                    </td>
+
+
+                    <!-- CLASS -->
+
+                    <td>
+                        {{ admission.admission_class }}
+                    </td>
+
+
+                    <!-- PHONE -->
+
+                    <td>
+                        {{ admission.parent_phone }}
+                    </td>
+
+
+                    <!-- EMAIL -->
+
+                    <td>
+
+                        {% if admission.email %}
+
+                            {{ admission.email }}
+
+                        {% else %}
+
+                            <span class="text-muted">
+                                Not provided
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- DATE -->
+
+                    <td>
+                        {{ admission.created_at|date:"d M Y" }}
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if admission.status == 'Pending' %}
+
+                            <span class="badge badge-pending px-3 py-2">
+
+                                <i class="fa-solid fa-clock me-1"></i>
+
+                                Pending
+
+                            </span>
+
+                        {% elif admission.status == 'Approved' %}
+
+                            <span class="badge badge-approved px-3 py-2">
+
+                                <i class="fa-solid fa-check me-1"></i>
+
+                                Approved
+
+                            </span>
+
+                        {% elif admission.status == 'Rejected' %}
+
+                            <span class="badge badge-rejected px-3 py-2">
+
+                                <i class="fa-solid fa-xmark me-1"></i>
+
+                                Rejected
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- ACTIONS -->
+
+                    <td>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+
+                            <!-- VIEW -->
+
+                            <a href="{% url 'admission_detail' admission.id %}"
+                               class="btn btn-sm btn-outline-primary">
+
+                                <i class="fa-solid fa-eye me-1"></i>
+
+                                View
+
+                            </a>
+
+
+                            <!-- PENDING ACTIONS -->
+
+                            {% if admission.status == 'Pending' %}
+
+
+                                <!-- APPROVE -->
+
+                                <form method="POST"
+                                      action="{% url 'update_admission_status' admission.id 'Approved' %}"
+                                      class="d-inline">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-success"
+                                            onclick="return confirm('Approve this admission application?');">
+
+                                        <i class="fa-solid fa-check me-1"></i>
+
+                                        Approve
+
+                                    </button>
+
+                                </form>
+
+
+                                <!-- REJECT -->
+
+                                <form method="POST"
+                                      action="{% url 'update_admission_status' admission.id 'Rejected' %}"
+                                      class="d-inline">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Reject this admission application?');">
+
+                                        <i class="fa-solid fa-xmark me-1"></i>
+
+                                        Reject
+
+                                    </button>
+
+                                </form>
+
+
+                            {% endif %}
+
+
+                            <!-- DELETE APPROVED / REJECTED -->
+
+                            {% if admission.status == 'Approved' or admission.status == 'Rejected' %}
+
+                                <form method="POST"
+                                      action="{% url 'delete_admission' admission.id %}"
+                                      class="d-inline"
+                                      onsubmit="return confirm('Are you sure you want to delete this admission application?');">
+
+                                    {% csrf_token %}
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-outline-danger">
+
+                                        <i class="fa-solid fa-trash me-1"></i>
+
+                                        Delete
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+        <div class="text-center py-5">
+
+            <i class="fa-solid fa-folder-open fa-3x text-muted mb-3"></i>
+
+            <h4>
+                No Admission Applications
+            </h4>
+
+            <p class="text-muted">
+
+                No admission applications have been submitted yet.
+
+            </p>
+
+        </div>
+
+    {% endif %}
+
 </div>
-```
 
 </section>
 

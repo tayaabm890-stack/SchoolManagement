@@ -641,7 +641,27 @@ def update_admission_status(
             admission.save()
 
     return redirect('admin_dashboard')
+# =========================
+# DELETE ADMISSION
+# =========================
 
+def delete_admission(request, admission_id):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    if not request.user.is_superuser:
+        return redirect('home')
+
+    admission = get_object_or_404(
+        Admission,
+        id=admission_id
+    )
+
+    if request.method == 'POST':
+        admission.delete()
+
+    return redirect('admin_dashboard')
 
 # =========================
 # CREATE ATTENDANCE

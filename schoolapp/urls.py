@@ -99,7 +99,11 @@ path('study-material/create/', views.create_study_material, name='create_study_m
         views.update_admission_status,
         name='update_admission_status'
     ),
-
+    path(
+    'admin-dashboard/admission/<int:admission_id>/delete/',
+    views.delete_admission,
+    name='delete_admission'
+    ),
     # ================= ATTENDANCE =================
 
     path(
