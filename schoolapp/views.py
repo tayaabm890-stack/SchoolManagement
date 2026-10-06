@@ -1,4 +1,4 @@
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -641,24 +641,19 @@ def update_admission_status(
             admission.save()
 
     return redirect('admin_dashboard')
-# =========================
-# DELETE ADMISSION
-# =========================
 
+
+
+
+@login_required
 def delete_admission(request, admission_id):
-
-    if not request.user.is_authenticated:
-        return redirect('login')
-
+    # Only the site superuser may delete admission applications.
     if not request.user.is_superuser:
         return redirect('home')
 
-    admission = get_object_or_404(
-        Admission,
-        id=admission_id
-    )
-
+    # Deletion must be submitted through the POST form.
     if request.method == 'POST':
+        admission = get_object_or_404(Admission, id=admission_id)
         admission.delete()
 
     return redirect('admin_dashboard')
