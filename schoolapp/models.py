@@ -10,9 +10,9 @@ from django.contrib.auth.models import User
 
 class SchoolClass(models.Model):
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
 
-    section = models.CharField(max_length=50)
+    section = models.CharField(max_length=20)
 
     def __str__(self):
         return f"{self.name} - {self.section}"
@@ -24,7 +24,7 @@ class SchoolClass(models.Model):
 
 class Subject(models.Model):
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
 
     school_class = models.ForeignKey(
         SchoolClass,
@@ -42,28 +42,28 @@ class Subject(models.Model):
 
 class Teacher(models.Model):
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=20)
 
     email = models.EmailField(
         blank=True
     )
 
     phone = models.CharField(
-        max_length=20,
+        max_length=12,
         blank=True
     )
 
     qualification = models.CharField(
-        max_length=150
+        max_length=20
     )
 
     experience = models.CharField(
-        max_length=100,
+        max_length=20,
         blank=True
     )
 
     subject = models.CharField(
-        max_length=100
+        max_length=20
     )
 
     bio = models.TextField(
@@ -133,7 +133,7 @@ class Admission(models.Model):
     )
 
     admission_class = models.CharField(
-        max_length=100
+        max_length=20
     )
 
     previous_school = models.CharField(

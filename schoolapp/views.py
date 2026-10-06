@@ -161,9 +161,30 @@ def admissions(request):
 
     if request.method == 'POST':
 
+        student_name = request.POST.get('student_name', '').strip()
+        father_name = request.POST.get('father_name', '').strip()
+
+        if len(student_name) > 20:
+            return render(
+                request,
+                'schoolapp/admissions.html',
+                {
+                    'error': 'Student name must be 20 characters or less.'
+                }
+            )
+
+        if len(father_name) > 20:
+            return render(
+                request,
+                'schoolapp/admissions.html',
+                {
+                    'error': 'Father name must be 20 characters or less.'
+                }
+            )
+
         Admission.objects.create(
-            student_name=request.POST.get('student_name'),
-            father_name=request.POST.get('father_name'),
+            student_name=student_name,
+            father_name=father_name,
             date_of_birth=request.POST.get('date_of_birth'),
             gender=request.POST.get('gender'),
             admission_class=request.POST.get('admission_class'),

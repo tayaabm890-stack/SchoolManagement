@@ -156,14 +156,15 @@
                     Username
                 </label>
 
-                <input
-                    type="text"
-                    name="username"
-                    class="form-control"
-                    placeholder="Enter username"
-                    required
-                >
-
+                
+<div class="input-group">
+    <input type="password" name="confirm_password" id="confirmPassword"
+           class="form-control" placeholder="Confirm password" required>
+    <button class="btn btn-outline-secondary" type="button"
+            onclick="togglePassword('confirmPassword', this)">
+        <i class="fa-solid fa-eye"></i>
+    </button>
+</div>
             </div>
 
 
