@@ -89,6 +89,18 @@
             font-weight: 600;
             text-decoration: none;
         }
+        
+.input-group .form-control {
+    border-radius: 8px 0 0 8px;
+}
+
+.input-group .btn {
+    border-radius: 0 8px 8px 0;
+}
+
+.input-group .form-control:focus {
+    z-index: 1;
+}
 
     </style>
 
@@ -174,6 +186,7 @@
                 </label>
 
                 
+
 <div class="input-group">
     <input
         type="password"
@@ -181,18 +194,18 @@
         id="loginPassword"
         class="form-control"
         placeholder="Enter password"
-        maxlength="128"
         required
     >
+
     <button
-        class="btn btn-outline-secondary"
         type="button"
-        onclick="togglePassword('loginPassword', this)"
-        aria-label="Show or hide password"
+        id="togglePasswordBtn"
+        class="btn btn-outline-secondary"
+        onclick="togglePassword()"
+        style="min-width: 55px;"
     >
-        <i class="fa-solid fa-eye"></i>
+        👁
     </button>
-</div>
 
             </div>
 
@@ -225,25 +238,20 @@
 
 </div>
 
-<script>
-function togglePassword(inputId, button) {
-    const passwordInput = document.getElementById(inputId);
-    const eyeIcon = button.querySelector("i");
 
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.remove("fa-eye");
-        eyeIcon.classList.add("fa-eye-slash");
+<script>
+function togglePassword() {
+    const password = document.getElementById("loginPassword");
+    const button = document.getElementById("togglePasswordBtn");
+
+    if (password.type === "password") {
+        password.type = "text";
+        button.textContent = "🙈";
     } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.remove("fa-eye-slash");
-        eyeIcon.classList.add("fa-eye");
+        password.type = "password";
+        button.textContent = "👁";
     }
 }
 </script>
 </body>
-
-</body>
-
 </html>
-
